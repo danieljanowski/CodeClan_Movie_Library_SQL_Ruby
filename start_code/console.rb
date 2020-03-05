@@ -56,9 +56,6 @@ casting6.save
 casting7 = Casting.new({'movie_id' => movie2.id, 'star_id' => star4.id, 'fee' => 600000})
 casting7.save
 
-casting8 = Casting.new({'movie_id' => movie1.id, 'star_id' => star3.id, 'fee' => 500000})
-casting8.save
-
 binding.pry
 
 nil

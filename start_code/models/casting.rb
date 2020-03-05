@@ -29,9 +29,34 @@ class Casting
     @id = casting['id'].to_i
   end
 
-  # def stars
-  #   sql = "SELECT * FROM stars WHERE stars.id"
-  # end
+  def update
+    sql = "UPDATE castings SET
+          (
+            movie_id,
+            star_id,
+            fee
+            ) =
+            ($1, $2, $3)
+            WHERE id = $4"
+      values = [@movie_id, @star_id, @fee, @id]
+      SqlRunner.run(sql, values)
+  end
+
+  def movie
+    sql = "SELECT * FROM movies
+          WHERE movies.id = $1"
+    values = [@movie_id]
+    select = SqlRunner.run(sql, values).first
+    return Movie.new(select)
+  end
+
+  def star
+    sql = "SELECT * FROM stars
+          WHERE stars.id = $1"
+    values = [@star_id]
+    select = SqlRunner.run(sql, values).first
+    return Star.new(select)
+  end
 
   def self.all
       sql = "SELECT * FROM castings"
