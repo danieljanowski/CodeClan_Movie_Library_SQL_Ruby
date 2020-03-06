@@ -56,7 +56,14 @@ class Movie
     sql = "DELETE FROM movies WHERE id = $1"
     values = [@id]
     SqlRunner.run(sql, values)
-    end
+  end
+
+  def remaining_budget
+    sql = "SELECT SUM(fee) FROM castings WHERE movie_id = $1"
+    values = [@id]
+    result_hash = SqlRunner.run(sql, values).first
+    return result_hash['sum'].to_i
+  end
 
   def self.all
       sql = "SELECT * FROM movies"
